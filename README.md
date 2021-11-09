@@ -1,7 +1,8 @@
 # vmbackup
 Victoria Metrics backup to remote S3 storage controller by crond.  
-This image is based on Victoria Metrics provided [here]|(https://github.com/VictoriaMetrics/VictoriaMetrics/blob/master/app/vmbackup/README.md).  
+This image is based on Victoria Metrics provided image [here]|(https://github.com/VictoriaMetrics/VictoriaMetrics/blob/master/app/vmbackup/README.md).  
 This image need to be run on the same pod where vmstorage runs if Victoria Metrics cluster version is used.
+More details can be read [here](https://docs.victoriametrics.com/Cluster-VictoriaMetrics.html#backups).
 
 ## Workflow
 
