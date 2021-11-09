@@ -50,7 +50,6 @@ It needs to be under *vmstorage* pod section
   extraContainers:
     - name: vmbackup
       image: mysteriumnetwork/vmbackup:0.0.1
-#      command: ["/bin/sh", "-ec", "sleep 1000"]
       imagePullPolicy: "Always"
       env:
         - name: HEARTBEAT_CALLBACK_0
