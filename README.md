@@ -1,6 +1,6 @@
 # vmbackup
-Victoria Metrics backup to remote S3 storage controller by crond.
-This image is based in Victoria Metrics provided [here]|(https://github.com/VictoriaMetrics/VictoriaMetrics/blob/master/app/vmbackup/README.md).
+Victoria Metrics backup to remote S3 storage controller by crond.  
+This image is based on Victoria Metrics provided [here]|(https://github.com/VictoriaMetrics/VictoriaMetrics/blob/master/app/vmbackup/README.md).  
 This image need to be run on the same pod where vmstorage runs if Victoria Metrics cluster version is used.
 
 ## Workflow
@@ -38,6 +38,7 @@ region=<S3 Region>
 
 ### Example how it can be used for Victoria Metrics cluster Helm chart version
 
+It needs to be under *vmstorage* pod section
 ```yaml
 
   # Extra Volumes for the pod
@@ -97,6 +98,6 @@ region=<S3 Region>
 * `CUSTOM_S3_ENDPOINT` - Remote S3 endpoint (should be prefixed with 'https://' or 'http://')
 * `CUSTOM_S3_BASEPATH` - Remote S3 basepath, that conforms the format 's3://<bucket name>/<base backup path dir>'. Under that directory per replica directory would be created automatically.
 * `HEARTBEAT_CALLBACK_0` - Url to call on successful backup action for first replica
-...
+* ...
 * `HEARTBEAT_CALLBACK_<N replica>` - Url to call on successful backup action for <N> replica
 
