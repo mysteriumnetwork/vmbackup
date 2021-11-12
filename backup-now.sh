@@ -16,6 +16,15 @@ echo $HEARTBEAT_URL
 echo $DST_URL
 
 /vmbackup-prod -storageDataPath=/storage -credsFilePath=/creds -snapshotName=$SNAPSHOT_NAME -customS3Endpoint=$CUSTOM_S3_ENDPOINT -dst=$DST_URL
+status=$?
+
+if test $status -eq 0
+then
+	echo "Victoria metrics backup succeeded!"
+else
+	echo "Victoria metrics backup didn't succeed! Exiting."
+	exit
+fi
 
 STATUS=$(curl http://localhost:8482/snapshot/delete?snapshot=$SNAPSHOT_NAME | jq -r '.status')
 
