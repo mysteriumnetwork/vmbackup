@@ -29,5 +29,7 @@ fi
 STATUS=$(curl http://localhost:8482/snapshot/delete?snapshot=$SNAPSHOT_NAME | jq -r '.status')
 
 if [ $STATUS == "ok" ]; then
-  curl $HEARTBEAT_URL
+  if [ -n "$HEARTBEAT_URL" ]; then
+    curl $HEARTBEAT_URL
+  fi
 fi
