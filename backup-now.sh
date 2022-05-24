@@ -15,16 +15,19 @@ echo $HOSTNAME
 echo $HEARTBEAT_URL
 echo $DST_URL
 
-/vmbackup-prod -storageDataPath=/storage -credsFilePath=/creds -snapshotName=$SNAPSHOT_NAME -customS3Endpoint=$CUSTOM_S3_ENDPOINT -dst=$DST_URL
-status=$?
+sleeptime=10m # Sleep for 10 minutes after a failed try.
+maxtries=5    # 5 * 10 minutes = about 50 minutes total of waiting,
+              # not counting running and failing.
 
-if test $status -eq 0
-then
-	echo "Victoria metrics backup succeeded!"
-else
-	echo "Victoria metrics backup didn't succeed! Exiting."
-	exit
-fi
+while ! /vmbackup-prod -storageDataPath=/storage -credsFilePath=/creds -snapshotName=$SNAPSHOT_NAME -customS3Endpoint=$CUSTOM_S3_ENDPOINT -dst=$DST_URL; do
+  maxtries=$(( maxtries - 1 ))
+  if [ "$maxtries" -eq 0 ]; then
+    echo "Victoria metrics backup didn't succeed! Exiting." >&2
+    exit 1
+  fi
+
+  sleep "$sleeptime" || break
+done
 
 STATUS=$(curl http://localhost:8482/snapshot/delete?snapshot=$SNAPSHOT_NAME | jq -r '.status')
 
