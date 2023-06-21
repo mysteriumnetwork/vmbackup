@@ -10,7 +10,6 @@ ADD entry.sh /entry.sh
 
 RUN chmod +x /job/backup-now.sh /entry.sh
 
-RUN crontab -l | { cat; echo "0 2 * * * sh /job/backup-now.sh >> /var/log/backup-now.log 2>&1"; } | crontab -
-#RUN crontab -l | { cat; echo "* * * * * echo Check"; } | crontab -
+RUN crontab -l | { cat; echo "0 2 * * * bash /job/backup-now.sh >> /var/log/backup-now.log 2>&1"; } | crontab -
 
 ENTRYPOINT ["/entry.sh"]
