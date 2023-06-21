@@ -46,7 +46,7 @@ if [ "${STATUS}" == "ok" ]; then
     done
   fi
   if [ "$HTTP_CODE" -ne "$SUCCESS_HTTP_CODE" ]; then
-    echo "Couldn't send heartbeat after $CURRENT retries"
+    echo "Couldn't send heartbeat after $CURRENT retries. Last status code is $HTTP_CODE"
     exit 1
   fi
 fi
