@@ -11,6 +11,9 @@ env:
 jobs:
   docker:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        architecture: [amd64, arm64]
     steps:
       -
         name: Checkout
@@ -33,7 +36,7 @@ jobs:
         with:
           context: .
           file: ./Dockerfile
-          platforms: linux/amd64
+          platforms: linux/${{ matrix.architecture }}
           build-args: VM_VERSION=${{ env.VM_VERSION }}
           tags: ${{ github.repository_owner }}/${{ github.event.repository.name }}:${{ env.VM_VERSION }}
           push: true
