@@ -6,7 +6,7 @@ on:
       - 'master'
 
 env:
-  VM_VERSION: v1.102.18
+  VM_VERSION: v1.110.5
 
 jobs:
   docker:
